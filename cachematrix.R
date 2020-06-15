@@ -23,6 +23,17 @@ makeCacheMatrix <- function(x = matrix()) {
 ## It first looks up if the matrix's inverse has been already calculated and stored in cache.
 ## If yes then it brings that stored value , otherwise it calculates the inverse.
 
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve <- function(z, ...) {
+  solved<- z$getmatrix()
+  if(!is.null(solved)) {
+    message("getting cached data")
+    return(solved)
+  }
+  data<- z$get()
+  solved<- solve(data)
+  z$setmatrix(solved)
+  solved
 }
+a<- makeCacheMatrix(matrix(c(1:4), nrow = 2))
+cacheSolve(a)
+
